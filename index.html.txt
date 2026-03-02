@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milk Pansa × YSL Generator</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap');
+
+body{
+  margin:0;
+  background:#000;
+  color:#d4af37;
+  font-family:'Inter', sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.wrapper{
+  width:90%;
+  max-width:650px;
+  text-align:center;
+}
+
+h1{
+  font-family:'Playfair Display', serif;
+  font-weight:600;
+  letter-spacing:3px;
+  font-size:26px;
+  margin-bottom:40px;
+}
+
+.counter{
+  font-size:12px;
+  color:#888;
+  margin-bottom:20px;
+  letter-spacing:1px;
+}
+
+.caption-box{
+  border-top:1px solid #d4af37;
+  border-bottom:1px solid #d4af37;
+  padding:40px 20px;
+  font-size:18px;
+  min-height:150px;
+  line-height:1.6;
+  margin-bottom:40px;
+  transition:opacity 0.25s ease;
+  white-space:pre-line;
+}
+
+button{
+  background:transparent;
+  border:1px solid #d4af37;
+  color:#d4af37;
+  padding:12px 28px;
+  margin:10px;
+  letter-spacing:1px;
+  font-size:13px;
+  cursor:pointer;
+  transition:all 0.3s ease;
+}
+
+button:hover{
+  background:#d4af37;
+  color:#000;
+}
+
+.footer{
+  position:fixed;
+  bottom:15px;
+  width:100%;
+  text-align:center;
+  font-size:11px;
+  color:#555;
+  letter-spacing:2px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+  <h1>MILK PANSA × YSL</h1>
+
+  <div class="counter" id="counter">
+    Used 0 / 50
+  </div>
+
+  <div class="caption-box" id="captionBox">
+    Click GENERATE to reveal ✨
+  </div>
+
+  <button onclick="generateCaption()">GENERATE</button>
+  <button onclick="copyCaption()">COPY ALL</button>
+</div>
+
+<script>
+
+const hashtags = `
+
+#YSLxMilkPansa
+#SaintLaurent
+#SaintLaurentPFW26
+#YSL #MilkPansa
+#PFW2026
+#YvesSaintLaurent #ParisFashionWeek
+#PFWWomen
+#FW26
+`;
+
+let captions = [
+"Milk Pansa glowing in YSL elegance ✨",
+"Milk Pansa serving iconic YSL energy 🔥",
+"YSL looks better when Milk Pansa wears it 💎",
+"Milk Pansa redefining luxury with YSL 👑",
+"Soft power meets YSL glamour — Milk Pansa edition 💫",
+"Milk Pansa shining brighter than YSL gold ✨",
+"YSL aura fits Milk Pansa perfectly 🌙",
+"Milk Pansa turning YSL into a masterpiece 🎨",
+"Confidence level: Milk Pansa in YSL 🔥",
+"Milk Pansa walking like she owns YSL runway 👠",
+"Milk Pansa + YSL = Fashion perfection 💎",
+"YSL elegance amplified by Milk Pansa ✨",
+"Milk Pansa making YSL unforgettable 🔥",
+"Paris vibes, YSL glam, Milk Pansa glow 🇫🇷",
+"Milk Pansa redefining chic with YSL 💫",
+"YSL masterpiece worn by Milk Pansa 👑",
+"Milk Pansa radiating Saint Laurent power ⚡",
+"Milk Pansa turning heads in YSL 💎",
+"YSL magic, Milk Pansa moment ✨",
+"Milk Pansa slaying in full YSL look 🔥",
+"Milk Pansa is the YSL standard 💫",
+"YSL sparkle matches Milk Pansa shine ✨",
+"Milk Pansa owning the YSL spotlight 🔥",
+"Luxury is Milk Pansa in YSL 👑",
+"Milk Pansa elevating YSL elegance 💎",
+"YSL aura wrapped around Milk Pansa ✨",
+"Milk Pansa walking art in YSL 🎨",
+"Milk Pansa glowing with Saint Laurent glam 💫",
+"YSL couture meets Milk Pansa confidence 🔥",
+"Milk Pansa shining in iconic YSL style 👠",
+"Milk Pansa in YSL is pure sophistication 💎",
+"YSL power embodied by Milk Pansa ✨",
+"Milk Pansa creating a YSL fairytale 🌙",
+"Milk Pansa + Saint Laurent = Timeless 🔥",
+"Milk Pansa owning YSL energy 👑",
+"YSL never looked this iconic on Milk Pansa 💫",
+"Milk Pansa making YSL history ✨",
+"YSL elegance perfectly fits Milk Pansa 💎",
+"Milk Pansa shining in Saint Laurent light 🔥",
+"Milk Pansa redefining YSL runway vibes 👠",
+"Milk Pansa in YSL is fashion poetry ✨",
+"Saint Laurent glamour, Milk Pansa glow 💫",
+"Milk Pansa turning YSL into art 🔥",
+"YSL luxury amplified by Milk Pansa 👑",
+"Milk Pansa dazzling in Saint Laurent 💎",
+"Milk Pansa radiating YSL elegance ✨",
+"YSL aura shining through Milk Pansa 🔥",
+"Milk Pansa rewriting YSL fashion rules 👠",
+"Milk Pansa glowing in golden YSL vibes 💫",
+"YSL masterpiece starring Milk Pansa 👑"
+];
+
+let used = [];
+let current = "";
+
+function updateCounter(){
+  document.getElementById("counter").innerText =
+    `Used ${used.length} / ${captions.length}`;
+}
+
+function generateCaption(){
+  if(used.length === captions.length){
+    used = [];
+  }
+
+  let available = captions.filter(c => !used.includes(c));
+  let random = available[Math.floor(Math.random()*available.length)];
+
+  current = random + hashtags;
+
+  document.getElementById("captionBox").style.opacity = 0;
+
+  setTimeout(()=>{
+    document.getElementById("captionBox").innerText = current;
+    document.getElementById("captionBox").style.opacity = 1;
+  },200);
+
+  used.push(random);
+  updateCounter();
+}
+
+function copyCaption(){
+  if(!current) return;
+  navigator.clipboard.writeText(current);
+  alert("Copied ✨");
+}
+
+updateCounter();
+
+</script>
+
+</body>
+</html>
